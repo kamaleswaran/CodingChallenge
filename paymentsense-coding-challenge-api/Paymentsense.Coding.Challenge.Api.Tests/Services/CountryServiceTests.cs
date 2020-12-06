@@ -40,6 +40,7 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Services
             countries.Count.Should().Be(250);
             countries.Any(c => c.Name.Contains("United Kingdom")).Should().BeTrue();
             countries[0].Flag.Should().NotBeNullOrEmpty();
+            countries[0].Alpha3Code.Should().NotBeNullOrEmpty();
         }
 
         [Fact]

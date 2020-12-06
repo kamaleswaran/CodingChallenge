@@ -9,5 +9,8 @@ namespace Paymentsense.Coding.Challenge.Api.Models
 
         [JsonPropertyName("flag")]
         public string Flag { get; set; }
+
+        [JsonPropertyName("alpha3Code")]
+        public string Alpha3Code { get; set; }
     }
 }
