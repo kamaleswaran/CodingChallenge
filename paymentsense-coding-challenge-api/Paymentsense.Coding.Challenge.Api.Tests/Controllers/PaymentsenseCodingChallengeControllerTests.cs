@@ -27,11 +27,35 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Controllers
         [Fact]
         public async Task ShouldGetAllCountries()
         {
+            //When
             var response = await _client.GetAsync("/PaymentsenseCodingChallenge");
+
+            //Then
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
 
             var countries = JsonSerializer.Deserialize<List<Country>>(await response.Content.ReadAsStringAsync());
 
             countries.Count.Should().Be(250);
+        }
+
+        [Fact]
+        public async Task ShouldGetCountryDetails()
+        {
+            //Given
+            var countryCode = "GBR";
+
+            //When
+            var response = await _client.GetAsync($"/PaymentsenseCodingChallenge/{countryCode}");
+
+            //Then
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+            var country = JsonSerializer.Deserialize<Country>(await response.Content.ReadAsStringAsync());
+
+            country.Capital.Should().Be("London");
+            country.TimeZones.Count.Should().Be(9);
+            country.Currencies[0].Code.Should().Be("GBP");
+            country.Languages[0].Name.Should().Be("English");
         }
     }
 }
