@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { PaymentsenseCodingChallengeApiService } from '../services';
+import { MockPaymentsenseCodingChallengeApiService } from '../testing/mock-paymentsense-coding-challenge-api.service';
 import { CountriesComponent } from './countries.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 describe('CountriesComponent', () => {
   let component: CountriesComponent;
@@ -8,7 +10,13 @@ describe('CountriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CountriesComponent ]
+      imports: [
+        NgxPaginationModule
+      ],
+      declarations: [CountriesComponent],
+      providers: [
+        { provide: PaymentsenseCodingChallengeApiService, useClass: MockPaymentsenseCodingChallengeApiService}
+      ]
     })
     .compileComponents();
   }));
