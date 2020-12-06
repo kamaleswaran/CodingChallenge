@@ -38,9 +38,15 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Services
 
             //Then
             countries.Count.Should().Be(250);
+
             countries.Any(c => c.Name.Contains("United Kingdom")).Should().BeTrue();
             countries[0].Flag.Should().NotBeNullOrEmpty();
             countries[0].Alpha3Code.Should().NotBeNullOrEmpty();
+            countries[0].Capital.Should().NotBeNullOrEmpty();
+            countries[0].Population.Should().BeGreaterThan(0);
+            countries[0].TimeZones.Count.Should().BeGreaterOrEqualTo(1);
+            countries[0].Languages.Count.Should().BeGreaterOrEqualTo(1);
+            countries[0].Borders.Count.Should().BeGreaterOrEqualTo(1);
         }
 
         [Fact]
