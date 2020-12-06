@@ -13,6 +13,11 @@ describe('workspace-project App', () => {
     expect(page.getTitleText()).toEqual('Paymentsense Coding Challenge!');
   });
 
+  it('should display first 10 countries in page 1', () => {
+    page.navigateTo();
+    expect(page.getCountryCountForPageOne()).toEqual(10);
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
