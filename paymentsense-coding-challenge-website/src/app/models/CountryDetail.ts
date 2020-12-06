@@ -3,7 +3,7 @@ import { Language } from './Language';
 
 export interface CountryDetails {
     name: string;
-    population: bigint;
+    population: number;
     timezones: string[];
     capital: string;
     currencies: Currency[];
