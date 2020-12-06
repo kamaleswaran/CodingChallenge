@@ -1,22 +1,37 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.TestHost;
 using Paymentsense.Coding.Challenge.Api.Controllers;
+using Paymentsense.Coding.Challenge.Api.Models;
 using Xunit;
 
 namespace Paymentsense.Coding.Challenge.Api.Tests.Controllers
 {
     public class PaymentsenseCodingChallengeControllerTests
     {
-        [Fact]
-        public void Get_OnInvoke_ReturnsExpectedMessage()
+        private readonly HttpClient _client;
+
+        public PaymentsenseCodingChallengeControllerTests()
         {
-            var controller = new PaymentsenseCodingChallengeController();
+            var builder = new WebHostBuilder().UseStartup<Startup>();
+            var testServer = new TestServer(builder);
+            _client = testServer.CreateClient();
+        }
 
-            var result = controller.Get().Result as OkObjectResult;
+        [Fact]
+        public async Task ShouldGetAllCountries()
+        {
+            var response = await _client.GetAsync("/PaymentsenseCodingChallenge");
 
-            result.StatusCode.Should().Be(StatusCodes.Status200OK);
-            result.Value.Should().Be("Paymentsense Coding Challenge!");
+            var countries = JsonSerializer.Deserialize<List<Country>>(await response.Content.ReadAsStringAsync());
+
+            countries.Count.Should().Be(250);
         }
     }
 }
