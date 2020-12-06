@@ -1,0 +1,9 @@
+.displayCountries {
+    display: flex;
+}
+
+.displayCountries div {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin: 50px;
+}
