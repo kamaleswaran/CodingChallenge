@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.TestHost;
-using Paymentsense.Coding.Challenge.Api.Controllers;
+using Microsoft.Extensions.Configuration;
 using Paymentsense.Coding.Challenge.Api.Models;
 using Xunit;
 
@@ -19,8 +19,18 @@ namespace Paymentsense.Coding.Challenge.Api.Tests.Controllers
 
         public PaymentsenseCodingChallengeControllerTests()
         {
-            var builder = new WebHostBuilder().UseStartup<Startup>();
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            
+            var config = configBuilder.Build();
+
+            var builder = new WebHostBuilder()
+                .UseConfiguration(config)
+                .UseStartup<Startup>();
+
             var testServer = new TestServer(builder);
+
             _client = testServer.CreateClient();
         }
 
