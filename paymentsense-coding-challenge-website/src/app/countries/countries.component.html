@@ -1,0 +1,104 @@
+<div class="countries">
+    <div>
+        <h2>List of countries:</h2>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <table>
+            <tbody>
+                <tr *ngFor="let country of countries | paginate: { itemsPerPage: 10, currentPage: p} ">
+                    <td><img style="width: 50px;" src='{{country.flag}}' /></td>
+                    <td>{{country.name}}</td>
+                    <td><input type="button" value="Show details" (click)="showDetails(country.alpha3Code)" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h2 *ngIf="selectedCountry.name">Selected country details:</h2>
+        <h2 *ngIf="!selectedCountry.name">No country selected!</h2>
+        <table *ngIf="selectedCountry.name">
+            <tbody>
+                <tr>
+                    <th>Country</th>
+                    <td>
+                        <ul>
+                            <li>
+                                {{selectedCountry.name}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Population</th>
+                    <td>
+                        <ul>
+                            <li>
+                                {{selectedCountry.population}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Timezone</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let timezone of selectedCountry.timezones">
+                                {{timezone}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Capital city</th>
+                    <td>
+                        <ul>
+                            <li>
+                                {{selectedCountry.capital}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Currency Code</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let currency of selectedCountry.currencies">
+                                {{currency.code}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Currency Symbol</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let currency of selectedCountry.currencies">
+                                {{currency.symbol}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Languages</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let language of selectedCountry.languages">
+                                {{language.name}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Borders</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let border of selectedCountry.borders">
+                                {{border}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
